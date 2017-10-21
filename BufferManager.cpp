@@ -3,8 +3,14 @@
 #include <string>
 #include "BufferManager.h"
 
-Buffer::Buffer(int n) : size(n), next(nullptr), previous(nullptr) {
+Buffer::Buffer() :size(10), next(nullptr), previous(nullptr), loc(0) {
+  char * head = new char[10];
+  cur = head;
+}
+
+Buffer::Buffer(int n) : size(n), next(nullptr), previous(nullptr), loc(0) {
   char* head = new char[size];
+  cur = head;
 }
 
 int Buffer::put(char c) {
@@ -16,7 +22,7 @@ int Buffer::put(char c) {
     *cur = c;
     loc++;
   }
-  return 1;x
+  return 1;
 }
 
 int Buffer::pop() {
@@ -31,6 +37,12 @@ int Buffer::pop() {
 
 Buffer::~Buffer() {
   delete head;
+}
+
+BufferManager::BufferManager() : incrementSize(10) {
+  p = new Buffer(10);
+  head = p;
+  tail = p;
 }
 
 BufferManager::BufferManager(int n): incrementSize(n) {
@@ -59,6 +71,7 @@ void BufferManager::pop() {
 void BufferManager::allocNewBuffer() {
   p->next = new Buffer(incrementSize); // the next buffer might have other chars
   p = p->next;
+  tail = p;
 }
 
 void BufferManager::destroyBuffer() {

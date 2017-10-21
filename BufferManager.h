@@ -22,12 +22,11 @@
 #include <memory>
 #include <string>
 
-
 class Buffer {
   friend class BufferManager;
  public:
   char* cur; // keeps track of where you are in the current buffer
-  Buffer() = default;
+  Buffer();
   Buffer(int);
   int put(char);
   int pop();
@@ -43,7 +42,7 @@ class Buffer {
 
 class BufferManager {
  public:
-  BufferManager() = default;
+  BufferManager();
   BufferManager(int n);
   void put(char c);
   void pop();

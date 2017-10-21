@@ -1,5 +1,5 @@
 #include <iostream>
-#include "BufferManager.cpp"
+#include "BufferManager.h"
 using namespace std;
 
 int main() {
